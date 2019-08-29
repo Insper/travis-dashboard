@@ -4,9 +4,9 @@
 SoftwareSerial mySerial(10, 11); // RX, TX
 #define GROUPS 12
 
-#define NUM_LEDS 282
+#define NUM_LEDS 294
 //the sum of ledPerGroup has to be the same as NUM_LEDS
-byte ledPerGroup[] = {24, 24, 25, 25, 24, 24, 23, 25, 25, 25, 25, 13};
+byte ledPerGroup[] = {24, 24, 25, 25, 24, 24, 23, 25, 25, 25, 25, 25};
 
 #define DATA_PIN 3
 
