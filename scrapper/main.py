@@ -7,7 +7,7 @@ import serial
 
 import json
 
-with open("config.json") as file:
+with open("/home/pi/travis-dashboard/scrapper/config.json") as file:
     json_data = json.load(file)
 
 
