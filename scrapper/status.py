@@ -1,17 +1,21 @@
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+
 import json
 import asyncio
 import aiohttp
 import requests
+import collections
 
 class Status:
 
     def __init__(self, url, groups_num):
         self.url = url
         self.groups_num = groups_num
-        self.groups = {}
-        self.status = {}
+        self.groups = []
         self.format_link()
         self.status = ''
+        self.order = []
 
     def get_groups_url(self):
         r = requests.get(self.url)
@@ -23,33 +27,28 @@ class Status:
         for lines in groups_url:
             try:
                 a = lines.split(",")
-                link = ''
-                if(len(a[1]) > 0):
-                    link = "https://api.travis-ci.com" + a[1].split("github.com")[1] + ".svg?branch\=master"
-                self.groups[a[0]] = {}
-                self.groups[a[0]]["link"] = link
+                self.groups.append(a[1])
             except:
                 print("Link not formated correctly")
 
     def get_status(self):
         self.status = ''
-        for group in self.groups:
-            url = self.groups[group]['link']
+        for url in self.groups:
+#            print(url)
             if len(url) > 0:
                 r = requests.get(url)
                 self.status += self.parse_svg(r.text)
             else:
-                self.status += 'B'
+                self.status += 'C'
 
     def parse_svg(self, svg):
         if svg.find('failing') > -1:
             return "R"
-        elif svg.find('passing'):
+        elif svg.find('passing') > -1:
             return "G"
         else:
-            return "B"
+            return "C"
 
     def run(self):
         self.get_status()
         print(self.status)
-        #self.format_results()

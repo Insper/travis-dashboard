@@ -17,6 +17,6 @@ class Send:
 if __name__ == "__main__":
     send = Send("/dev/ttyS0", 115200)
 
-    send.send_string("RRRRCCCCGGGG")
+    send.send_string("RGRRCCCCGGGR")
 
     send.close()
